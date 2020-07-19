@@ -1,0 +1,1 @@
+const char *get_icon_filename(const char *icon_name);

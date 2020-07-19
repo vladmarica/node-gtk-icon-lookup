@@ -1,0 +1,6 @@
+*.o
+gtk_icon_lookup_tool
+.vscode/
+node_modules/
+build/
+dist/

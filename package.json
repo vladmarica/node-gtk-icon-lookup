@@ -1,0 +1,20 @@
+{
+  "name": "node-gtk-icons",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:native": "node-gyp build",
+    "build:lib": "tsc -p tsconfig.json"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.0.23",
+    "node-gyp": "^7.0.0",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "bindings": "^1.5.0"
+  }
+}
