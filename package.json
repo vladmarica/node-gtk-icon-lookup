@@ -1,5 +1,5 @@
 {
-  "name": "node-gtk-icons",
+  "name": "node-gtk-icon-lookup",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
