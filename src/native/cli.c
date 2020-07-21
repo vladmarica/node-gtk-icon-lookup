@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  const char* icon_filename = get_icon_filename(argv[1]);
+  const char* icon_filename = get_icon_filename(argv[1], 32);
   if (icon_filename != NULL) {
     printf("%s\n", icon_filename);
   }

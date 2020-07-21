@@ -3,6 +3,18 @@
 #include <stdio.h>
 #include "gtk_icon_lookup.h"
 
+#define DEFAULT_ICON_LOOKUP_SIZE 32
+
+int32_t get_napi_int(napi_env env, napi_value value) {
+  int32_t result; 
+  napi_status status = napi_get_value_int32(env, value, &result);
+  if (status != napi_ok) {
+    napi_throw_error(env, NULL, "Failed to convert N-API int to C int");
+  }
+
+  return result;
+}
+
 /*
  * Converts a N-API (JavaScript) string to a null-terminated C string. This function will
  * throw an N-API error on a number of conditions, such as if the given napi_value does not represent
@@ -34,7 +46,7 @@ char *get_napi_string(napi_env env, napi_value value) {
 }
 
 napi_value _napi_get_icon_filename(napi_env env, napi_callback_info info) {
-  size_t argc = 1;
+  size_t argc = 2;
   napi_value args[argc];
 
   napi_status status = napi_get_cb_info(env, info, &argc, args, NULL, NULL);
@@ -43,8 +55,8 @@ napi_value _napi_get_icon_filename(napi_env env, napi_callback_info info) {
     return NULL;
   }
 
-  if (argc != 1) {
-    napi_throw_error(env, NULL, "Invalid number of arguments, expected 1");
+  if (argc != 1 && argc != 2) {
+    napi_throw_error(env, NULL, "Invalid number of arguments, expected 1 or 2");
     return NULL;
   }
 
@@ -55,8 +67,22 @@ napi_value _napi_get_icon_filename(napi_env env, napi_callback_info info) {
     return NULL;
   }
 
+  int32_t icon_size = DEFAULT_ICON_LOOKUP_SIZE;
+
+  // If 2 arguments were passed, treat the second as the icon size request.
+  if (argc == 2) {
+    napi_valuetype icon_size_type;
+    napi_typeof(env, args[1], &icon_size_type);
+    if (icon_size_type != napi_number) {
+      napi_throw_error(env, NULL, "Icon size must be a number");
+      return NULL;
+    }
+
+    icon_size = get_napi_int(env, args[1]);
+  }
+
   char *icon_name = get_napi_string(env, args[0]);
-  const char *icon_filename = get_icon_filename(icon_name);
+  const char *icon_filename = get_icon_filename(icon_name, icon_size);
   free(icon_name);
 
   if (icon_filename == NULL) {
