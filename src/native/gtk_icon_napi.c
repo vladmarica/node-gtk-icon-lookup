@@ -73,12 +73,14 @@ napi_value _napi_get_icon_filename(napi_env env, napi_callback_info info) {
   if (argc == 2) {
     napi_valuetype icon_size_type;
     napi_typeof(env, args[1], &icon_size_type);
-    if (icon_size_type != napi_number) {
+
+    if (icon_size_type == napi_number) {
+      icon_size = get_napi_int(env, args[1]);
+    }
+    else if (icon_size_type != napi_undefined) {
       napi_throw_error(env, NULL, "Icon size must be a number");
       return NULL;
     }
-
-    icon_size = get_napi_int(env, args[1]);
   }
 
   char *icon_name = get_napi_string(env, args[0]);
