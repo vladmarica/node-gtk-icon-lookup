@@ -1,6 +1,6 @@
 {
   "name": "node-gtk-icon-lookup",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A native Node.js module for looking up GTK3+ icons.",
   "main": "dist/gtk-icon-lookup.js",
   "types": "dist/gtk-icon-lookup.d.ts",
