@@ -1,8 +1,9 @@
 {
   "name": "node-gtk-icon-lookup",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A native Node.js module for looking up GTK3+ icons.",
+  "main": "dist/gtk-icon-lookup.js",
+  "types": "dist/gtk-icon-lookup.d.ts",
   "scripts": {
     "build:native": "node-gyp build",
     "build:lib": "tsc -p tsconfig.json",
@@ -10,6 +11,10 @@
   },
   "author": "Vlad Marica",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vladmarica/node-gtk-icon-lookup.git"
+  },
   "os": [
     "linux"
   ],

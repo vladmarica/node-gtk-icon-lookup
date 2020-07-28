@@ -42,10 +42,9 @@ export const isIconLookupSupported = async () => {
     return gtkSupported;
   }
 
-  if (os.platform() !== 'linux') {
-    gtkSupported = false;
-  }
-  else {
+  gtkSupported = false;
+
+  if (os.platform() === 'linux') {
     const result = child_process.spawnSync('/sbin/ldconfig', ['-p']);
     if (result.status === 0) {
       for (const data of result.output) {
@@ -65,8 +64,6 @@ export const isIconLookupSupported = async () => {
         }
       }
     }
-
-    gtkSupported = false;
   }
 
   return gtkSupported;
